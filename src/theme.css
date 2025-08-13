@@ -1,0 +1,164 @@
+/* Tema Customizado - Forçar Alternância */
+
+/* Modo Claro (Padrão) */
+html:not(.dark) {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+/* Modo Escuro */
+html.dark {
+  --bg-primary: #111827 !important;
+  --bg-secondary: #1f2937 !important;
+  --bg-tertiary: #374151 !important;
+  --text-primary: #f9fafb !important;
+  --text-secondary: #d1d5db !important;
+  --border-color: #4b5563 !important;
+}
+
+/* Aplicar cores customizadas - PÁGINA INTEIRA */
+html.dark,
+html.dark body,
+html.dark #root,
+html.dark main,
+html.dark div,
+html.dark section,
+html.dark article,
+html.dark aside,
+html.dark header,
+html.dark footer {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+html:not(.dark),
+html:not(.dark) body,
+html:not(.dark) #root,
+html:not(.dark) main,
+html:not(.dark) div,
+html:not(.dark) section,
+html:not(.dark) article,
+html:not(.dark) aside,
+html:not(.dark) header,
+html:not(.dark) footer {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* MODO ESCURO - Forçar TODOS os backgrounds */
+html.dark .bg-white,
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark .bg-gray-200,
+html.dark .bg-slate-50,
+html.dark .bg-slate-100,
+html.dark .bg-blue-50,
+html.dark .bg-green-50,
+html.dark .bg-red-50,
+html.dark .bg-yellow-50,
+html.dark .bg-purple-50,
+html.dark .bg-indigo-50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+html.dark .bg-gray-800,
+html.dark .bg-gray-900,
+html.dark .bg-slate-800,
+html.dark .bg-slate-900 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* MODO ESCURO - Forçar TODOS os textos */
+html.dark .text-gray-900,
+html.dark .text-gray-800,
+html.dark .text-gray-700,
+html.dark .text-black,
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: var(--text-primary) !important;
+}
+
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-gray-400,
+html.dark .text-slate-600,
+html.dark .text-slate-500 {
+  color: var(--text-secondary) !important;
+}
+
+/* MODO CLARO - Forçar TODOS os backgrounds */
+html:not(.dark) .bg-gray-800,
+html:not(.dark) .bg-gray-900,
+html:not(.dark) .bg-slate-800,
+html:not(.dark) .bg-slate-900 {
+  background-color: var(--bg-primary) !important;
+}
+
+html:not(.dark) .bg-gray-700,
+html:not(.dark) .bg-gray-600 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* MODO CLARO - Forçar TODOS os textos */
+html:not(.dark) .text-white,
+html:not(.dark) .text-gray-100,
+html:not(.dark) .text-gray-200,
+html:not(.dark) .text-gray-300 {
+  color: var(--text-primary) !important;
+}
+
+/* Forçar bordas */
+html.dark .border-gray-200,
+html.dark .border-gray-300,
+html.dark .border-slate-200 {
+  border-color: var(--border-color) !important;
+}
+
+/* Cards e containers */
+html.dark .shadow-lg,
+html.dark .shadow-md,
+html.dark .shadow-sm {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+html:not(.dark) .shadow-lg,
+html:not(.dark) .shadow-md,
+html:not(.dark) .shadow-sm {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Transições suaves */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Debug - Indicador visual do tema ativo */
+html.dark::before {
+  content: "MODO ESCURO ATIVO";
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #ef4444;
+  color: white;
+  padding: 4px 8px;
+  font-size: 10px;
+  z-index: 9999;
+  border-radius: 4px;
+}
+
+html:not(.dark)::before {
+  content: "MODO CLARO ATIVO";
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #10b981;
+  color: white;
+  padding: 4px 8px;
+  font-size: 10px;
+  z-index: 9999;
+  border-radius: 4px;
+}
