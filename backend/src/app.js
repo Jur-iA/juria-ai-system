@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const { supabase } = require('./lib/supabase');
+
+// WhatsApp Bot Integration
+const WhatsAppBot = require('./whatsappBot');
+let whatsappBot = null;
 const agentsRouter = require('./routes/agents');
 const authRouter = require('./routes/auth');
 const casesRouter = require('./routes/cases');
@@ -17,10 +21,36 @@ app.use(cors({ origin: '*'}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Root route
+app.get('/', (_req, res) => {
+  res.json({ 
+    message: 'JurIA Backend API', 
+    status: 'running',
+    version: '1.0.0',
+    time: new Date().toISOString(),
+    endpoints: ['/api/health', '/api/auth', '/api/cases', '/api/documents', '/api/calendar', '/api/notifications']
+  });
+});
+
 // Health
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
 });
+
+// WhatsApp Bot Status
+app.get('/api/bot/status', (_req, res) => {
+  const status = whatsappBot ? whatsappBot.getStatus() : { isReady: false, activeUsers: 0 };
+  res.json({ 
+    bot: status,
+    message: status.isReady ? 'Bot conectado e funcionando' : 'Bot inicializando ou desconectado'
+  });
+});
+
+// Initialize WhatsApp Bot
+if (process.env.NODE_ENV === 'production' || process.env.ENABLE_WHATSAPP_BOT === 'true') {
+  console.log('🤖 Inicializando WhatsApp Bot...');
+  whatsappBot = new WhatsAppBot();
+}
 
 // Upload de documentos para Supabase Storage (bucket)
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: Number(process.env.MAX_FILE_SIZE || 10 * 1024 * 1024) } });
@@ -73,7 +103,7 @@ app.use('/api/emails', emailsRouter);
 app.use('/api/bot', botDataRouter);
 
 // Tokens de cadastro (sem autenticação - usado pelo bot WhatsApp)
-const tokensRouter = require('./routes/tokens');
+const tokensRouter = require('../routes/tokens');
 app.use('/api/tokens', tokensRouter);
 
 module.exports = app;

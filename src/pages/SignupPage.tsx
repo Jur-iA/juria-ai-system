@@ -37,7 +37,7 @@ export default function SignupPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/api/tokens/validate/${token}`);
+      const response = await fetch(`https://juria-ai-project.onrender.com/api/tokens/validate/${token}`);
       const data = await response.json();
 
       if (response.ok && data.valid) {
@@ -80,7 +80,7 @@ export default function SignupPage() {
       );
 
       // Marca token como usado
-      await fetch(`http://localhost:3001/api/tokens/use/${token}`, {
+      await fetch(`https://juria-ai-project.onrender.com/api/tokens/use/${token}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: formData.email })

@@ -1,8 +1,55 @@
 const express = require('express');
-const { supabase } = require('../supabase');
+const { supabase } = require('../src/lib/supabase');
 const router = express.Router();
 
-// Criar novo token de acesso
+// Criar novo token de acesso (rota para bot WhatsApp)
+router.post('/create', async (req, res) => {
+  try {
+    const { phone, contactName, plan, amount } = req.body;
+
+    if (!phone || !contactName) {
+      return res.status(400).json({ 
+        error: 'Phone e contactName são obrigatórios' 
+      });
+    }
+
+    // Gerar token único
+    const token = 'JURIA-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    
+    // Expirar em 24 horas
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+    const { data, error } = await supabase
+      .from('access_tokens')
+      .insert([{
+        token,
+        phone,
+        contact_name: contactName,
+        plan: plan || 'solo',
+        amount: amount || 'R$ 197,00',
+        expires_at: expiresAt,
+        used: false,
+        created_at: new Date().toISOString()
+      }])
+      .select();
+
+    if (error) throw error;
+
+    console.log(`✅ Token criado: ${token} para ${contactName} (${phone})`);
+    res.json({ 
+      success: true, 
+      token: token,
+      data: data[0],
+      link: `https://resonant-sable-1eca3a.netlify.app/cadastro/${token}`
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao criar token:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Criar novo token de acesso (rota original)
 router.post('/', async (req, res) => {
   try {
     const { token, phone, contactName, expiresAt } = req.body;

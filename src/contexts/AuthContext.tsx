@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     // Authenticate against backend and store JWT
-    const base = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3001';
+    const base = (import.meta as any).env?.VITE_API_BASE_URL || 'https://juria-ai-project.onrender.com';
     const res = await fetch(`${base}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

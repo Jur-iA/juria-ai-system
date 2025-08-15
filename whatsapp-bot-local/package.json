@@ -1,0 +1,30 @@
+{
+  "name": "juria-whatsapp-bot-local",
+  "version": "2.0.0",
+  "description": "JurIA WhatsApp Bot - Desenvolvimento Local",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "test": "node test-bot.js"
+  },
+  "dependencies": {
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0",
+    "axios": "^1.6.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "juria",
+    "juridico",
+    "ia"
+  ],
+  "author": "JurIA Team",
+  "license": "MIT"
+}
