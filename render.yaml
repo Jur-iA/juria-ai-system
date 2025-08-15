@@ -3,9 +3,8 @@ services:
     name: juriai-backend
     env: node
     plan: free
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
     autoDeploy: true
     envVars:
       - key: NODE_VERSION
