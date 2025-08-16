@@ -3,14 +3,18 @@ services:
     name: juriai-backend
     env: node
     plan: free
+<<<<<<< HEAD
     buildCommand: cd backend && npm install
     startCommand: cd backend && node server.js
+=======
+    rootDir: .
+    buildCommand: npm install
+    startCommand: node backend/server.js
+>>>>>>> 9f0f16f (Deploy: include backend and Render configs (Node 18))
     autoDeploy: true
     envVars:
       - key: NODE_VERSION
         value: 18
-      - key: PORT
-        value: 3001
       # Supabase
       - key: SUPABASE_URL
         sync: false

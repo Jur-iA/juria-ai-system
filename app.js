@@ -7,7 +7,7 @@ console.log('🔄 Redirecionando para o backend...');
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-const app = require('../backend/src/app');
+const app = require('./backend/src/app.js');
 
 const PORT = process.env.PORT || 3001;
 

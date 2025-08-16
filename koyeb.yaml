@@ -1,0 +1,33 @@
+# Koyeb app definition for Jur-iA backend
+# Docs: https://www.koyeb.com/docs
+name: juriai-backend
+services:
+  - name: api
+    type: web
+    # Uses the Dockerfile at repository root
+    docker:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - port: 3001
+        protocol: http
+        # Koyeb will route external :80/:443 to this internal port
+    healthcheck:
+      http_get:
+        path: /api/health
+        port: 3001
+      interval: 10s
+      timeout: 5s
+      healthy_threshold: 2
+      unhealthy_threshold: 3
+    env:
+      NODE_ENV: production
+      # Add your secrets in the Koyeb dashboard (recommended) or here if non-sensitive
+      # SUPABASE_URL: ""
+      # SUPABASE_SERVICE_ROLE_KEY: ""
+      SUPABASE_BUCKET: documents
+      MAX_FILE_SIZE: "10485760"
+    # Scale to 1 instance on the free tier
+    scaling:
+      min: 1
+      max: 1

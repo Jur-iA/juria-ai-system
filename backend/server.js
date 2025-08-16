@@ -9,21 +9,16 @@ console.log('📍 Current directory:', process.cwd());
 console.log('📁 Files in current directory:', fs.readdirSync('.'));
 
 // Set PORT from environment or default
-const PORT = parseInt(process.env.PORT) || 10000;
+const PORT = parseInt(process.env.PORT) || 3001;
 console.log('🔌 Using PORT:', PORT);
 console.log('🔌 PORT type:', typeof PORT);
 
 // Try to load the main app from different possible locations
 let app;
 const possiblePaths = [
-  './backend/src/app.js',
-  './backend/src/app',
+  './src/app.js',
   './app.js',
-  './src/app.js', 
-  './backend/app.js',
-  './app',
-  './src/app',
-  './backend/app'
+  '../app.js'
 ];
 
 console.log('🔍 Searching for app.js...');
@@ -56,7 +51,6 @@ if (typeof app.listen !== 'function') {
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🎉 JurIA Backend running successfully!`);
   console.log(`📡 Server URL: http://0.0.0.0:${PORT}`);
-  console.log(`🌐 Public URL: https://juria-ai-project.onrender.com`);
   console.log(`⏰ Started at: ${new Date().toISOString()}`);
   console.log(`🔌 Server listening on port ${PORT} (type: ${typeof PORT})`);
 });
